@@ -17,8 +17,8 @@ const db = mysql.createConnection({
 });
 
 //GET method
-app.get("/table", (req, res) => {
-  const sql = "SELECT * FROM student1";
+app.get("/", (req, res) => {
+  const sql = "SELECT * FROM silat";
   db.query(sql, (err, data) => {
     if (err) return res.json(err);
     return res.json(data);

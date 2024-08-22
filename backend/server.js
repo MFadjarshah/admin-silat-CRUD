@@ -25,6 +25,22 @@ app.get("/", (req, res) => {
   });
 });
 
+//POST method
+app.post("/create", (req, res) => {
+  const sql =
+    "INSERT INTO silat (`firstName`, `lastName`, `age`, `address`) VALUES (?, ?, ?, ?)";
+  const values = [
+    req.body.firstName,
+    req.body.lastName,
+    req.body.age,
+    req.body.address,
+  ];
+  db.query(sql, values, (err, data) => {
+    if (err) return res.json(err);
+    return res.json(data);
+  });
+});
+
 app.listen(8081, () => {
   console.log("Listening...");
 });

@@ -26,7 +26,7 @@ app.get("/", (req, res) => {
 });
 
 //POST method
-app.post("/create", (req, res) => {
+app.post("/members/new", (req, res) => {
   const sql =
     "INSERT INTO silat (`firstName`, `lastName`, `age`, `address`) VALUES (?, ?, ?, ?)";
   const values = [

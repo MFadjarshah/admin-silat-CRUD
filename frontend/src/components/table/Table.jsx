@@ -49,7 +49,7 @@ const Table = () => {
       <div className="tableTitle">
         List of Member
         {/* <Link to="/members/new" className="link"> */}
-        <Link to="/create" className="link">
+        <Link to="/members/new" className="link">
           Add New
         </Link>
       </div>

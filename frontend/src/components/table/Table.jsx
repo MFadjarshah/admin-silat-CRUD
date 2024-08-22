@@ -29,7 +29,10 @@ const Table = () => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to="/members/test" style={{ textDecoration: "none" }}>
+            <Link
+              to={`/members/${params.id}`}
+              style={{ textDecoration: "none" }}
+            >
               <div className="viewButton">View</div>
             </Link>
             <div

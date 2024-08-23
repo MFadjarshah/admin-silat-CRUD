@@ -17,8 +17,14 @@ const Table = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+  const handleDelete = async (id) => {
+    // setData(data.filter((item) => item.id !== id));
+    try {
+      await axios.delete("http://localhost:8081/members/" + id);
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const actionColumn = [

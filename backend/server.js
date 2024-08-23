@@ -41,6 +41,17 @@ app.post("/members/new", (req, res) => {
   });
 });
 
+// DELETE method
+app.delete("/members/:id", (req, res) => {
+  const sql = "DELETE FROM silat WHERE ID=?";
+  const id = req.params.id;
+
+  db.query(sql, [id], (err, data) => {
+    if (err) return res.json(err);
+    return res.json(data);
+  });
+});
+
 app.listen(8081, () => {
   console.log("Listening...");
 });

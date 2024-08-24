@@ -1,7 +1,8 @@
 import "./list.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
-import Table from "../../components/table/Table";
+// import Table from "../../components/table/Table";
+import Table1 from "../../components/table1/Table1";
 // import React, { useEffect, useState } from "react";
 // import axios from "axios";
 // import { Link } from "react-router-dom";
@@ -24,7 +25,7 @@ const List = () => {
       <Sidebar />
       <div className="listContainer">
         <Navbar />
-        <Table />
+        <Table1 />
       </div>
     </div>
   );

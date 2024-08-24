@@ -3,22 +3,34 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import Revchart from "../../components/revchart/Revchart";
 import Chart from "../../components/chart/Chart";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { memberColumns, memberRows } from "../../datatablesource";
+// import { memberColumns, memberRows } from "../../datatablesource";
 import axios from "axios";
 
 const Single = () => {
-  const { id } = useParams();
-  const [data, setData] = useState([memberRows.id]);
+  const [student, setStudent] = useState(""); // Initialize with null (data might not be immediately available)
+  const { id } = useParams(); // Get the student ID from URL parameters
 
   // Fetch the single's data from the server
   useEffect(() => {
     axios
-      .get("http://localhost:8081/")
-      .then((res) => setData(res.data))
+      .get("http://localhost:8081/members/view/" + id)
+      .then((res) => setStudent(res.data))
       .catch((err) => console.log(err));
   }, [id]);
+
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:8081/members/view/" + id)
+  //     .then((res) => {
+  //       console.log("Fetched data:", res.data); // Debugging log
+  //       setStudent(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.error("Error fetching student data:", err);
+  //     });
+  // }, [id]);
 
   return (
     <div className="single">
@@ -36,18 +48,18 @@ const Single = () => {
                 className="itemImg"
               />
               <div className="details">
-                <h1 className="itemTitle">{data.firstName}</h1>
+                <h1 className="itemTitle">{student.firstName}</h1>
                 <div className="detailItem">
                   <span className="itemKey">Email:</span>
-                  <span className="itemValue">janedoe@gmail.com</span>
+                  <span className="itemValue">""</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Phone:</span>
-                  <span className="itemValue">+012 3456 789</span>
+                  <span className="itemValue">012-3456789</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Address:</span>
-                  <span className="itemValue">17-1, Jalan Villa Kesuma 2</span>
+                  <span className="itemValue">{student.address}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Country:</span>

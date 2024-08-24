@@ -20,6 +20,22 @@ export const memberColumns = [
   { field: "address", headerName: "Address", width: 240 },
 ];
 
+// Fetch data from the API endpoint
+export const memberRows = async () => {
+  try {
+    const response = await fetch("http://localhost:8081/");
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const data = await response.json();
+    console.log("Fetched data:", data);
+    return data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return [];
+  }
+};
+
 //temporary data
 // export const memberRows = [
 //   { id: 1, lastName: "Snow", firstName: "Jon", age: 35, address: "VK1 1-1" },
@@ -81,22 +97,6 @@ export const memberColumns = [
 //   },
 // ];
 
-// Fetch data from the API endpoint
-export const memberRows = async () => {
-  try {
-    const response = await fetch("http://localhost:8081/");
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-    const data = await response.json();
-    console.log("Fetched data:", data);
-    return data;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    return [];
-  }
-};
-
 // To test the fetch data
 // export const memberRows = async () => {
 //   try {
@@ -114,4 +114,4 @@ export const memberRows = async () => {
 // };
 
 // Call the function for testing purposes
-memberRows();
+// memberRows();

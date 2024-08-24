@@ -21,7 +21,7 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="members">
               <Route index element={<List />} />
-              <Route path=":userID" element={<Single />} />
+              <Route path="view/:id" element={<Single />} />
               <Route path="new" element={<New />} />
             </Route>
           </Route>

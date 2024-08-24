@@ -17,11 +17,35 @@ const db = mysql.createConnection({
 });
 
 //GET method
-app.get("/", (req, res) => {
+app.get("/members", (req, res) => {
   const sql = "SELECT * FROM silat";
   db.query(sql, (err, data) => {
     if (err) return res.json(err);
     return res.json(data);
+  });
+});
+
+// GET method for single
+app.get("/members/view/:id", (req, res) => {
+  const sql = "SELECT * FROM silat WHERE ID=?";
+  const id = req.params.id;
+
+  // Debugging: Log the query and parameters
+  console.log(`Executing query: ${sql} with ID: ${id}`);
+
+  db.query(sql, [id], (err, data) => {
+    if (err) {
+      console.error("SQL Error:", err); // Log the exact error
+      return res
+        .status(500)
+        .json({ message: "Database query error", error: err });
+    }
+
+    if (data.length === 0) {
+      return res.status(404).json({ message: "Student not found" });
+    }
+
+    return res.json(data[0]);
   });
 });
 

@@ -52,11 +52,12 @@ app.get("/members/view/:id", (req, res) => {
 //POST method
 app.post("/members/new", (req, res) => {
   const sql =
-    "INSERT INTO silat (`firstName`, `lastName`, `age`, `address`) VALUES (?, ?, ?, ?)";
+    "INSERT INTO silat (`firstName`, `lastName`, `age`, `phone`, `address`) VALUES (?, ?, ?, ?, ?)";
   const values = [
     req.body.firstName,
     req.body.lastName,
     req.body.age,
+    req.body.phone,
     req.body.address,
   ];
   db.query(sql, values, (err, data) => {

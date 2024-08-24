@@ -41,18 +41,24 @@ const Table1 = () => {
       field: "age",
       headerName: "Age",
       type: "number",
-      width: 100,
+      width: 50,
     },
     {
-      field: "fullName",
-      headerName: "Full name",
-      description: "This column has a value getter and is not sortable.",
-      sortable: false,
-      width: 240,
-      valueGetter: (params) =>
-        `${params.row.firstName || ""} ${params.row.lastName || ""}`,
+      field: "phone",
+      headerName: "Phone",
+      type: "number",
+      width: 150,
     },
-    { field: "address", headerName: "Address", width: 240 },
+    // {
+    //   field: "fullName",
+    //   headerName: "Full name",
+    //   description: "This column has a value getter and is not sortable.",
+    //   sortable: false,
+    //   width: 240,
+    //   valueGetter: (params) =>
+    //     `${params.row.firstName || ""} ${params.row.lastName || ""}`,
+    // },
+    { field: "address", headerName: "Address", width: 400 },
     // actionColumn for VIEW and DELETE button
     {
       field: "action",
@@ -85,30 +91,6 @@ const Table1 = () => {
           Add New
         </Link>
       </div>
-      {/* <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Age</th>
-            <th>Full Name</th>
-            <th>Address</th>
-          </tr>
-        </thead>
-        <tbody>
-          {student.map((member) => (
-            <tr key={member.id}>
-              <td>{member.id}</td>
-              <td>{member.firstName}</td>
-              <td>{member.lastName}</td>
-              <td>{member.age}</td>
-              <td>{`${member.firstName} ${member.lastName}`}</td>
-              <td>{member.address}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table> */}
       <DataGrid
         rows={student} // Use the fetched data here
         columns={columns} // Columns defined above
@@ -117,16 +99,6 @@ const Table1 = () => {
         checkboxSelection // Optional: Allows selection of rows via checkboxes
       />
     </div>
-
-    // <div style={{ height: 400, width: "100%" }}>
-    //   <DataGrid
-    //     rows={rows}
-    //     columns={memberColumns}
-    //     pageSize={10}
-    //     rowsPerPageOptions={[5, 10, 20]}
-    //     checkboxSelection
-    //   />
-    // </div>
   );
 };
 

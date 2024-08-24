@@ -11,6 +11,7 @@ const New = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [age, setAge] = useState("");
+  const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const navigate = useNavigate();
 
@@ -22,6 +23,7 @@ const New = () => {
         firstName,
         lastName,
         age,
+        phone,
         address,
       })
       .then((res) => {
@@ -90,7 +92,11 @@ const New = () => {
               </div>
               <div className="formInput">
                 <label htmlFor="">Phone</label>
-                <input type="text" placeholder="012-3456789" />
+                <input
+                  type="text"
+                  placeholder="012-3456789"
+                  onChange={(e) => setPhone(e.target.value)}
+                />
               </div>
               <div className="formInput">
                 <label htmlFor="">Address</label>

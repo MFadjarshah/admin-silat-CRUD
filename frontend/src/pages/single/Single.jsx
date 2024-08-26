@@ -4,7 +4,7 @@ import Navbar from "../../components/navbar/Navbar";
 import Revchart from "../../components/revchart/Revchart";
 import Chart from "../../components/chart/Chart";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 // import { memberColumns, memberRows } from "../../datatablesource";
 import axios from "axios";
 
@@ -39,7 +39,15 @@ const Single = () => {
         <Navbar />
         <div className="top">
           <div className="topContainer">
-            <div className="editButton">Edit</div>
+            <Link to="/members/edit/:id" className="link">
+              <div className="editButton">Edit</div>
+            </Link>
+            {/* <Link
+              to={`/members/edit/${params.row.id}`}
+              style={{ textDecoration: "none" }}
+            >
+              <div className="editButton">Edit</div>
+            </Link> */}
             <h1 className="title">Information</h1>
             <div className="item">
               <img
@@ -50,8 +58,8 @@ const Single = () => {
               <div className="details">
                 <h1 className="itemTitle">{student.firstName}</h1>
                 <div className="detailItem">
-                  <span className="itemKey">Email:</span>
-                  <span className="itemValue">""</span>
+                  <span className="itemKey">Age:</span>
+                  <span className="itemValue">{student.age}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Phone:</span>

@@ -4,6 +4,7 @@ import List from "./pages/list/List";
 import Single from "./pages/single/Single";
 import New from "./pages/new/New";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
+import Edit from "./pages/edit/Edit";
 
 // import { getSheetsData } from "./_lib/readSheet";
 
@@ -22,6 +23,7 @@ function App() {
             <Route path="members">
               <Route index element={<List />} />
               <Route path="view/:id" element={<Single />} />
+              <Route path="edit/:id" element={<Edit />} />
               <Route path="new" element={<New />} />
             </Route>
           </Route>

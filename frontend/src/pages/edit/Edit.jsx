@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./edit.scss";
@@ -6,14 +6,22 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 
 const Edit = () => {
+  const [student, setStudent] = useState("");
   const [name, setName] = useState("");
-
   const { id } = useParams();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     axios.put("http://localhost:8081" + id, { name });
   };
+
+  // Fetch the single's data from the server
+  useEffect(() => {
+    axios
+      .get("http://localhost:8081/members/view/" + id)
+      .then((res) => setStudent(res.data))
+      .catch((err) => console.log(err));
+  }, [id]);
 
   return (
     <div className="edit">
@@ -27,7 +35,7 @@ const Edit = () => {
               <label htmlFor="">Name</label>
               <input
                 type="text"
-                placeholder="Enter Name"
+                placeholder={student.name}
                 className="form-control"
                 onChange={(e) => setName(e.target.value)}
               />

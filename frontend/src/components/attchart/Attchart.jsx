@@ -2,6 +2,7 @@ import "./attchart.scss";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import React from "react";
 
 const Attchart = () => {
   return (

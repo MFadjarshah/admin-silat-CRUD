@@ -4,6 +4,7 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import "./edit.scss";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
+import React from "react";
 
 const Edit = () => {
   const [name, setName] = useState("");

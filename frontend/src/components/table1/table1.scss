@@ -23,6 +23,18 @@
     }
   }
 
+  .status-red {
+    color: red;
+  }
+
+  .status-orange {
+    color: orange;
+  }
+
+  .status-green {
+    color: green;
+  }
+
   .cellAction {
     display: flex;
     align-items: center;

@@ -2,19 +2,19 @@ import "./list.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 // import Table from "../../components/table/Table";
-import Table1 from "../../components/table1/Table1";
+import Table19 from "../../components/table1/Table19";
 import React from "react";
 
-const List = () => {
+const List19 = () => {
   return (
     <div className="list">
       <Sidebar />
       <div className="listContainer">
         <Navbar />
-        <Table1 />
+        <Table19 />
       </div>
     </div>
   );
 };
 
-export default List;
+export default List19;

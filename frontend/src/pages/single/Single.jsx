@@ -50,13 +50,9 @@ const Single = () => {
             </Link> */}
             <h1 className="title">Information</h1>
             <div className="item">
-              <img
-                src="https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
-                alt=""
-                className="itemImg"
-              />
+              <img src="" alt="" className="itemImg" />
               <div className="details">
-                <h1 className="itemTitle">{student.firstName}</h1>
+                <h1 className="itemTitle">{student.zcName}</h1>
                 <div className="detailItem">
                   <span className="itemKey">Age:</span>
                   <span className="itemValue">{student.age}</span>
@@ -77,14 +73,14 @@ const Single = () => {
             </div>
           </div>
         </div>
-        <div className="bottom">
+        {/* <div className="bottom">
           <div className="left">
             <Revchart aspect={2 / 1} title="User Payment" />
           </div>
           <div className="right">
             <Chart />
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

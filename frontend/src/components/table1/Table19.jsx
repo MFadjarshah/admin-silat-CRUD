@@ -6,12 +6,12 @@ import axios from "axios";
 // import { useParams } from "react-router-dom"; // Import useParams to access route params
 import { Link } from "react-router-dom";
 
-const Table1 = () => {
+const Table19 = () => {
   const [student, setStudent] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8081/members/1kad")
+      .get("http://localhost:8081/members/19ramd")
       // .then((res) => console.log(res))
       .then((res) => {
         setStudent(res.data);
@@ -125,4 +125,4 @@ const Table1 = () => {
   );
 };
 
-export default Table1;
+export default Table19;

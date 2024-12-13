@@ -15,5 +15,13 @@
     .charts {
       padding: 5px 20px;
     }
+
+    .title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: gray;
+      padding-left: 10px;
+    }
   }
 }

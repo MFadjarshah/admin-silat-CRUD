@@ -16,18 +16,78 @@ const db = mysql.createConnection({
   database: "crud",
 });
 
-//GET method
-app.get("/members", (req, res) => {
-  const sql = "SELECT * FROM silat";
+//GET method 1kad
+app.get("/members/1kad", (req, res) => {
+  const sql = "SELECT * FROM tis1";
   db.query(sql, (err, data) => {
     if (err) return res.json(err);
     return res.json(data);
   });
 });
 
+//GET method 2kad
+app.get("/members/2kad", (req, res) => {
+  const sql = "SELECT * FROM tis2";
+  db.query(sql, (err, data) => {
+    if (err) return res.json(err);
+    return res.json(data);
+  });
+});
+
+//GET method 3kad
+app.get("/members/3kad", (req, res) => {
+  const sql = "SELECT * FROM tis3";
+  db.query(sql, (err, data) => {
+    if (err) return res.json(err);
+    return res.json(data);
+  });
+});
+
+//GET method 4kad
+app.get("/members/4kad", (req, res) => {
+  const sql = "SELECT * FROM tis4";
+  db.query(sql, (err, data) => {
+    if (err) return res.json(err);
+    return res.json(data);
+  });
+});
+
+//GET method 19ramd
+app.get("/members/19ramd", (req, res) => {
+  const sql = "SELECT * FROM tis19";
+  db.query(sql, (err, data) => {
+    if (err) return res.json(err);
+    return res.json(data);
+  });
+});
+
+//GET method for camp
+// app.get("/members/:camp", (req, res) => {
+//   const sql = "SELECT * FROM tis1 WHERE CAMP=?";
+//   const camp = req.params.camp;
+
+// Debugging: Log the query and parameters
+//   console.log(`Executing query: ${sql} with CAMP: ${camp}`);
+
+//   db.query(sql, [camp], (err, data) => {
+//     if (err) {
+//       console.error("SQL Error:", err); // Log the exact error
+//       return res
+//         .status(500)
+//         .json({ message: "Database query error", error: err });
+//     }
+
+//     if (data.length === 0) {
+//       return res.status(404).json({ message: "Student not found" });
+//     }
+
+//     return res.json(data[0]);
+//   });
+// });
+
 // GET method for single
-app.get("/members/view/:id", (req, res) => {
-  const sql = "SELECT * FROM silat WHERE ID=?";
+app.get("/members/view/1kad/:id", (req, res) => {
+  const sql = "SELECT * FROM tis1 WHERE ID=?";
   const id = req.params.id;
 
   // Debugging: Log the query and parameters

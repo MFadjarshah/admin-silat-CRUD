@@ -1,22 +1,40 @@
 const express = require("express");
-const mysql = require("mysql");
+const mysql = require("mysql2");
 const cors = require("cors");
+const fs = require("fs");
+const path = require("path");
 
 const app = express();
 
 app.use(express.json());
-
 app.use(cors());
 
-// Connect to MySQL
-const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "crud",
+// Sambungan ke Database Cloud (Aiven MySQL) menggunakan CA Cert
+const db = mysql.createPool({
+  host: "mysql-20da18f6-admin-silat-db.h.aivencloud.com",
+  port: 13172,
+  user: "avnadmin",
+  password: "AVNS_J8piOcNHNnOwCkdgMPa",
+  database: "defaultdb",
+  ssl: {
+    ca: fs.readFileSync(path.join(__dirname, "ca.pem"))
+  },
+  waitForConnections: true,
+  connectionLimit: 10,
+  connectTimeout: 30000
 });
 
-//GET method 1kad
+// Uji sambungan ke Aiven
+db.getConnection((err, connection) => {
+  if (err) {
+    console.error("Gagal menyambung ke database Aiven:", err.message);
+  } else {
+    console.log("Berjaya disambungkan ke Aiven MySQL Database!");
+    connection.release();
+  }
+});
+
+// GET method 1kad
 app.get("/members/1kad", (req, res) => {
   const sql = "SELECT * FROM tis1";
   db.query(sql, (err, data) => {
@@ -25,7 +43,7 @@ app.get("/members/1kad", (req, res) => {
   });
 });
 
-//GET method 2kad
+// GET method 2kad
 app.get("/members/2kad", (req, res) => {
   const sql = "SELECT * FROM tis2";
   db.query(sql, (err, data) => {
@@ -34,7 +52,7 @@ app.get("/members/2kad", (req, res) => {
   });
 });
 
-//GET method 3kad
+// GET method 3kad
 app.get("/members/3kad", (req, res) => {
   const sql = "SELECT * FROM tis3";
   db.query(sql, (err, data) => {
@@ -43,7 +61,7 @@ app.get("/members/3kad", (req, res) => {
   });
 });
 
-//GET method 4kad
+// GET method 4kad
 app.get("/members/4kad", (req, res) => {
   const sql = "SELECT * FROM tis4";
   db.query(sql, (err, data) => {
@@ -52,7 +70,7 @@ app.get("/members/4kad", (req, res) => {
   });
 });
 
-//GET method 19ramd
+// GET method 19ramd
 app.get("/members/19ramd", (req, res) => {
   const sql = "SELECT * FROM tis19";
   db.query(sql, (err, data) => {
@@ -61,41 +79,16 @@ app.get("/members/19ramd", (req, res) => {
   });
 });
 
-//GET method for camp
-// app.get("/members/:camp", (req, res) => {
-//   const sql = "SELECT * FROM tis1 WHERE CAMP=?";
-//   const camp = req.params.camp;
-
-// Debugging: Log the query and parameters
-//   console.log(`Executing query: ${sql} with CAMP: ${camp}`);
-
-//   db.query(sql, [camp], (err, data) => {
-//     if (err) {
-//       console.error("SQL Error:", err); // Log the exact error
-//       return res
-//         .status(500)
-//         .json({ message: "Database query error", error: err });
-//     }
-
-//     if (data.length === 0) {
-//       return res.status(404).json({ message: "Student not found" });
-//     }
-
-//     return res.json(data[0]);
-//   });
-// });
-
 // GET method for single
 app.get("/members/view/1kad/:id", (req, res) => {
   const sql = "SELECT * FROM tis1 WHERE ID=?";
   const id = req.params.id;
 
-  // Debugging: Log the query and parameters
   console.log(`Executing query: ${sql} with ID: ${id}`);
 
   db.query(sql, [id], (err, data) => {
     if (err) {
-      console.error("SQL Error:", err); // Log the exact error
+      console.error("SQL Error:", err);
       return res
         .status(500)
         .json({ message: "Database query error", error: err });
@@ -109,7 +102,7 @@ app.get("/members/view/1kad/:id", (req, res) => {
   });
 });
 
-//POST method
+// POST method
 app.post("/members/new", (req, res) => {
   const sql =
     "INSERT INTO silat (`firstName`, `lastName`, `age`, `phone`, `address`) VALUES (?, ?, ?, ?, ?)";
@@ -138,5 +131,5 @@ app.delete("/members/:id", (req, res) => {
 });
 
 app.listen(8081, () => {
-  console.log("Listening...");
+  console.log("Listening on port 8081...");
 });

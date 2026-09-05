@@ -1,1 +1,21 @@
-SELECT * FROM silat;
+CREATE TABLE IF NOT EXISTS tis1 (
+  ID INT AUTO_INCREMENT PRIMARY KEY,
+  zcNumber VARCHAR(255),
+  camp VARCHAR(255),
+  location VARCHAR(255),
+  serialNumber VARCHAR(255),
+  partNumber VARCHAR(255),
+  type VARCHAR(255),
+  status VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS tis2 (
+  ID INT AUTO_INCREMENT PRIMARY KEY,
+  zcNumber VARCHAR(255),
+  camp VARCHAR(255),
+  location VARCHAR(255),
+  serialNumber VARCHAR(255),
+  partNumber VARCHAR(255),
+  type VARCHAR(255),
+  status VARCHAR(255)
+);

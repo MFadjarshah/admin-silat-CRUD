@@ -3,20 +3,33 @@ const mysql = require("mysql2");
 const cors = require("cors");
 const fs = require("fs");
 const path = require("path");
+require("dotenv").config();
 
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+
+// Tetapan CORS yang lebih terbuka untuk menyokong GitHub Codespaces
+app.use(
+  cors({
+    origin: "*", // Membenarkan semua domain/origin
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
+// Mengendalikan preflight request untuk semua route
+app.options("*", cors());
 
 // Sambungan ke Database Cloud (Aiven MySQL) menggunakan CA Cert
 const db = mysql.createPool({
-  host: "mysql-20da18f6-admin-silat-db.h.aivencloud.com",
-  port: 13172,
-  user: "avnadmin",
-  password: "AVNS_J8piOcNHNnOwCkdgMPa",
-  database: "defaultdb",
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
   ssl: {
+    // Memandangkan ca.pem ada dalam folder backend:
     ca: fs.readFileSync(path.join(__dirname, "ca.pem"))
   },
   waitForConnections: true,
@@ -24,12 +37,61 @@ const db = mysql.createPool({
   connectTimeout: 30000
 });
 
-// Uji sambungan ke Aiven
+// // Uji sambungan ke Aiven
+// db.getConnection((err, connection) => {
+//   if (err) {
+//     console.error("Gagal menyambung ke database Aiven:", err.message);
+//   } else {
+//     console.log("Berjaya disambungkan ke Aiven MySQL Database!");
+//     connection.release();
+//   }
+// });
+
+// Uji sambungan & cipta jadual secara automatik jika belum ada
 db.getConnection((err, connection) => {
   if (err) {
     console.error("Gagal menyambung ke database Aiven:", err.message);
   } else {
     console.log("Berjaya disambungkan ke Aiven MySQL Database!");
+
+    // Skrip cipta jadual tis1
+    const createTis1 = `
+      CREATE TABLE IF NOT EXISTS tis1 (
+        ID INT AUTO_INCREMENT PRIMARY KEY,
+        zcNumber VARCHAR(255),
+        camp VARCHAR(255),
+        location VARCHAR(255),
+        serialNumber VARCHAR(255),
+        partNumber VARCHAR(255),
+        type VARCHAR(255),
+        status VARCHAR(255)
+      );
+    `;
+
+    // Skrip cipta jadual tis2
+    const createTis2 = `
+      CREATE TABLE IF NOT EXISTS tis2 (
+        ID INT AUTO_INCREMENT PRIMARY KEY,
+        zcNumber VARCHAR(255),
+        camp VARCHAR(255),
+        location VARCHAR(255),
+        serialNumber VARCHAR(255),
+        partNumber VARCHAR(255),
+        type VARCHAR(255),
+        status VARCHAR(255)
+      );
+    `;
+
+    connection.query(createTis1, (err) => {
+      if (err) console.error("Gagal bina jadual tis1:", err.message);
+      else console.log("Jadual 'tis1' sedia digunakan!");
+    });
+
+    connection.query(createTis2, (err) => {
+      if (err) console.error("Gagal bina jadual tis2:", err.message);
+      else console.log("Jadual 'tis2' sedia digunakan!");
+    });
+
     connection.release();
   }
 });
@@ -103,21 +165,44 @@ app.get("/members/view/1kad/:id", (req, res) => {
 });
 
 // POST method
+// POST method untuk simpan data baharu ke jadual tis1 (1KAD)
 app.post("/members/new", (req, res) => {
-  const sql =
-    "INSERT INTO silat (`firstName`, `lastName`, `age`, `phone`, `address`) VALUES (?, ?, ?, ?, ?)";
+  const sql = `INSERT INTO tis1 (zcNumber, camp, location, serialNumber, partNumber, type, status) 
+               VALUES (?, ?, ?, ?, ?, ?, ?)`;
+  
   const values = [
-    req.body.firstName,
-    req.body.lastName,
-    req.body.age,
-    req.body.phone,
-    req.body.address,
+    req.body.zcNumber,
+    req.body.camp,
+    req.body.location,
+    req.body.serialNumber,
+    req.body.partNumber,
+    req.body.type,
+    req.body.status
   ];
+
   db.query(sql, values, (err, data) => {
-    if (err) return res.json(err);
-    return res.json(data);
+    if (err) {
+      console.error("Ralat SQL INSERT:", err);
+      return res.status(500).json({ message: "Gagal menyimpan data", error: err });
+    }
+    return res.status(200).json({ message: "Data berjaya disimpan!", data });
   });
 });
+// app.post("/members/new", (req, res) => {
+//   const sql =
+//     "INSERT INTO silat (`firstName`, `lastName`, `age`, `phone`, `address`) VALUES (?, ?, ?, ?, ?)";
+//   const values = [
+//     req.body.firstName,
+//     req.body.lastName,
+//     req.body.age,
+//     req.body.phone,
+//     req.body.address,
+//   ];
+//   db.query(sql, values, (err, data) => {
+//     if (err) return res.json(err);
+//     return res.json(data);
+//   });
+// });
 
 // DELETE method
 app.delete("/members/:id", (req, res) => {

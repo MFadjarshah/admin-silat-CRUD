@@ -1,12 +1,13 @@
-.table1 {
-  // height: 600px;
+.datatable {
   padding: 20px;
+  box-sizing: border-box;
+  width: 100%;
 
-  .tableTitle {
+  .datatableTitle {
     width: 100%;
     font-size: 24px;
     color: gray;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -17,22 +18,14 @@
       font-size: 16px;
       font-weight: 400;
       border: 1px solid green;
-      padding: 5px;
+      padding: 5px 10px;
       border-radius: 5px;
       cursor: pointer;
+
+      &:hover {
+        background-color: rgba(0, 128, 0, 0.1);
+      }
     }
-  }
-
-  .status-red {
-    color: red;
-  }
-
-  .status-orange {
-    color: orange;
-  }
-
-  .status-green {
-    color: green;
   }
 
   .cellAction {
@@ -44,7 +37,7 @@
       padding: 2px 5px;
       border-radius: 5px;
       color: darkblue;
-      border: 1px solid rgba(0, 0, 139, 0.6);
+      border: 1px solid rgba(0, 0, 139, 0.596);
       cursor: pointer;
     }
 

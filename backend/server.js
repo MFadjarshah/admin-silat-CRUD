@@ -204,14 +204,28 @@ app.post("/members/new", (req, res) => {
 //   });
 // });
 
-// DELETE method
-app.delete("/members/:id", (req, res) => {
-  const sql = "DELETE FROM silat WHERE ID=?";
+// // DELETE method
+// app.delete("/members/:id", (req, res) => {
+//   const sql = "DELETE FROM silat WHERE ID=?";
+//   const id = req.params.id;
+
+//   db.query(sql, [id], (err, data) => {
+//     if (err) return res.json(err);
+//     return res.json(data);
+//   });
+// });
+
+// DELETE method khusus untuk tis1 (1KAD)
+app.delete("/members/1kad/:id", (req, res) => {
+  const sql = "DELETE FROM tis1 WHERE ID = ?";
   const id = req.params.id;
 
   db.query(sql, [id], (err, data) => {
-    if (err) return res.json(err);
-    return res.json(data);
+    if (err) {
+      console.error("SQL Error semasa padam:", err);
+      return res.status(500).json({ message: "Gagal memadam data", error: err });
+    }
+    return res.json({ message: "Berjaya dipadam dari tis1", data });
   });
 });
 
